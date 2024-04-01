@@ -1,0 +1,35 @@
+{
+  "name": "menju",
+  "private": true,
+  "author": "Soheil Nazari",
+  "engines": {
+    "node": "20.12.*",
+    "npm": "10.5.*"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "nuxt": "^3.11.1",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prisma": "^5.11.0",
+    "tailwindcss": "^3.4.3",
+    "vitest": "^1.4.0"
+  },
+  "prisma": {
+    "schema": "./server/data/database/schema.prisma"
+  }
+}

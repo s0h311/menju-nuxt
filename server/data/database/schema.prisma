@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name String
+  shops Shop[]
+}
+
+model Shop {
+  id                 Int             @id @default(autoincrement())
+  user               User            @relation(fields: [userId], references: [id])
+  userId             Int             @map("user_id")
+  name               String
+  abbreviation       String          @unique
+  dishCategories     DishCategory[]
+  orders             Order[]
+  logoUrl            String?          @map("logo_url")
+  cartType           CartType        @default(CANNOT_ORDER) @map("cart_type")
+  isFilterBarEnabled Boolean         @default(true) @map("is_filter_bar_enabled")
+  paymentMethods     PaymentMethod[] @default([CASH]) @map("payment_methods")
+  theme              Theme           @default(DEFAULT)
+}
+
+model DishCategory {
+  id       Int     @id @default(autoincrement())
+  priority Int     @default(0)
+  name     String
+  imageUrl String?
+  dishes   Dish[]
+  shop     Shop    @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shopId   Int     @map("shop_id")
+
+  @@map("dish_category")
+}
+
+model Dish {
+  id             Int          @id @default(autoincrement())
+  priority       Int          @default(0)
+  name           String
+  price          Int
+  imageUrl       String?
+  ingredients    Json
+  labels         String[]
+  description    String?
+  dishCategory   DishCategory @relation(fields: [dishCategoryId], references: [id], onDelete: Cascade)
+  dishCategoryId Int          @map("dish_category_id")
+
+  @@index([dishCategoryId])
+  @@map("dish")
+}
+
+model Order {
+  id            Int           @id @default(autoincrement())
+  shop          Shop          @relation(fields: [shopId], references: [id])
+  shopId        Int           @map("shop_id")
+  tableId       String?       @map("table_id")
+  positions     Json
+  paymentMethod PaymentMethod @map("payment_method")
+  isPayed       Boolean?      @map("is_payed")
+  netTotal      Int           @map("net_total")
+  vat           Int?
+  note          String?
+  orderDate     DateTime      @default(now()) @map("order_date") @db.Timestamp(6)
+  orderStatus   OrderStatus   @default(RECEIVED) @map("order_status")
+}
+
+enum OrderStatus {
+  RECEIVED
+  DONE
+  REJECTED
+
+  @@map("order_status")
+}
+
+enum CartType {
+  CAN_ORDER
+  CANNOT_ORDER
+
+  @@map("cart_type")
+}
+
+enum PaymentMethod {
+  CARD
+  CASH
+
+  @@map("payment_methods")
+}
+
+enum Theme {
+  DEFAULT
+}

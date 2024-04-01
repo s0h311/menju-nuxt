@@ -1,9 +1,11 @@
 <template>
-  <p class="text-green-500">{{ dishesByCategory }}</p>
-
-  <p class="text-red-500">{{ JSON.stringify(error) }}</p>
+  <div class="grid place-items-center pt-20">
+    <NuxtLink
+      class="border rounded-xl px-3 py-2 border-slate-800"
+      to="/shop/8"
+      >Go to demo</NuxtLink
+    >
+  </div>
 </template>
 
-<script setup lang="ts">
-const { data: dishesByCategory, error } = useFetch('/api/dishesByCategory/8')
-</script>
+<script setup lang="ts"></script>

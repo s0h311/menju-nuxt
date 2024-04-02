@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  name String
+  name  String
   shops Shop[]
 }
 
@@ -21,7 +21,7 @@ model Shop {
   abbreviation       String          @unique
   dishCategories     DishCategory[]
   orders             Order[]
-  logoUrl            String?          @map("logo_url")
+  logoUrl            String?         @map("logo_url")
   cartType           CartType        @default(CANNOT_ORDER) @map("cart_type")
   isFilterBarEnabled Boolean         @default(true) @map("is_filter_bar_enabled")
   paymentMethods     PaymentMethod[] @default([CASH]) @map("payment_methods")

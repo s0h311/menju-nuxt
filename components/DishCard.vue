@@ -5,11 +5,15 @@
       class="aspect-[5/3] object-cover rounded-t-lg"
       :src="`dummy/foodImages/${dish.imageUrl}`"
       width="400"
-      height="300"
+      height="240"
     />
-    <div class="p-3">
-      <h3>{{ dish.name }}</h3>
-      <p>{{ toMonetaryValue(dish.price) }}</p>
+    <div class="space-y-3 p-3">
+      <div class="grid grid-flow-col gap-4 justify-between">
+        <h3>{{ dish.name }}</h3>
+        <p>{{ toMonetaryValue(dish.price) }}</p>
+      </div>
+
+      <p class="line-clamp-2 text-sm">{{ allIngredients }}</p>
     </div>
   </li>
 </template>
@@ -22,4 +26,9 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const allIngredients = computed<string>(() => {
+  const ingredients = props.dish.ingredients
+  return `${ingredients.required.join(', ')}, ${ingredients.optional.join(', ')}`
+})
 </script>

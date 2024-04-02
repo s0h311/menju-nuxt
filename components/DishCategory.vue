@@ -1,6 +1,8 @@
 <template>
   <li class="space-y-5">
-    <h2>{{ dishesByCategory.dishCategory.name }}</h2>
+    <h2 class="tracking-wider">
+      {{ capitalize(dishesByCategory.dishCategory.name) /** TODO macht das so Sinn? Oder Casing nicht ändern? */ }}
+    </h2>
     <DishList :dishes="dishesByCategory.dishes" />
   </li>
 </template>

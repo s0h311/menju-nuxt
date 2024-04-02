@@ -1,5 +1,5 @@
 <template>
-  <li class="border rounded-lg">
+  <li class="border rounded-lg shadow">
     <NuxtImg
       v-if="dish.imageUrl"
       class="aspect-[5/3] object-cover rounded-t-lg"
@@ -9,7 +9,7 @@
     />
     <div class="space-y-3 p-3">
       <div class="grid grid-flow-col gap-4 justify-between">
-        <h3>{{ dish.name }}</h3>
+        <h3 class="line-clamp-2">{{ dish.name }}</h3>
         <p>{{ toMonetaryValue(dish.price) }}</p>
       </div>
 

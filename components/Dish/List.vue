@@ -1,5 +1,5 @@
 <template>
-  <ul class="grid grid-flow-col gap-5 overflow-x-scroll">
+  <ul class="grid grid-flow-col gap-5 overflow-x-scroll hide-scrollbar">
     <DishCard
       v-for="dish in dishes"
       class="w-[65dvw] md:w-[30dvw] lg:w-72"
